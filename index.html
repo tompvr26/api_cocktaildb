@@ -13,7 +13,7 @@
 
 
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search cocktail" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <input type="text" class="form-control" placeholder="Search cocktail" v-model="searchQuery" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
         <button type="submit">Rechercher</button>
     </div>
 
@@ -55,7 +55,7 @@
             ByName: [],
             idDrink: 'idDrink',
             strDrink: 'strDrink',
-            search: "",
+            searchQuery: null,
         },
         created: function() {
             this.getRandomDrinks();
@@ -90,24 +90,10 @@
         },
 
         computed: {
-            filteredDep: function () {
-                var ByName_array = this.ByName,
-                    searchString = this.searchString;
-
-                if(!searchString){
-                    return ByName_array;
-                }
-
-                searchString = searchString.trim().toLowerCase();
-
-                ByName_array = ByName_array.filter(function(item){
-                    if(item.strDrink.toLowerCase().indexOf(searchString) !== -1){
-                        return item;
-                    }
+            resultQuery(){
+                return this.ByName.filter((item)=>{
+                    this.searchQuery.toLowerCase().split(' ').every(v => item.strDrink.toLowerCase().includes(v))
                 })
-
-                // Return an array with the filtered data.
-                return ByName_array;
             }
         }
     })
