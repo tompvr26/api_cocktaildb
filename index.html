@@ -14,12 +14,12 @@
 
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search cocktail" v-model="searchQuery" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-        <button type="submit">Rechercher</button>
+        <button @click="getDrinksByName" type="submit">Rechercher</button>
     </div>
 
     <div class="p-2 border shadow bg-light card">
         <div class="card-header">
-            <h2 class="text-center">{{ ByName.strDrink }}</h2>
+            <span class="text-center">{{ ByName.strDrink }}</span>
         </div>
     </div>
 
@@ -80,7 +80,7 @@
 
             getDrinksByName: async function () {
                 try {
-                    const response = await axios.get(urlByName + searchString)
+                    const response = await axios.get(urlByName + this.searchQuery)
                     console.log(response.data)
                     this.ByName = response.data.drinks[0];
                 } catch (error) {
