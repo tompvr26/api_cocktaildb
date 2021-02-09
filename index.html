@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <title>Cocktail</title>
+</head>
+<body>
+<div id="demo" class="container">
+    <h1 class="text-center p-5">Choix Cocktail</h1>
+
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="p-2 border shadow bg-light card">
+        <div class="card-header">
+            <h2 class="text-center">{{ Resp.Nom }}</h2>
+        </div>
+    </div>
+
+
+</div>
+
+
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const apiURL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
+
+    const demo = new Vue({
+        el: '#demo',
+        data: {
+            Resp: [],
+            id: 'idDrink',
+            Nom: 'strDrink',
+
+
+        },
+        created: function() {
+            this.fetchData();
+        },
+        watch: {
+
+        },
+        filters: {
+
+        },
+        methods: {
+            fetchData: function () {
+                      axios
+                            .get(apiURL)
+                            .then((response) => {
+                              console.log(response.data)
+                              this.Resp = response.data 
+                            })
+                            .catch((error) => {
+                              console.log(error);
+                            })
+            },
+        }
+    })
+</script>
+</html>
